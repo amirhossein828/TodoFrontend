@@ -49,10 +49,7 @@ public func readData<T:Object>(_ model: T.Type, predicate: String?, completion: 
     }
     completion(result)
     
-    print("gggg")
-    print("kjhlkjkljhglkjhjk")
-    print("amir")
-    
+
 }
 
 // MARK: - Delete
