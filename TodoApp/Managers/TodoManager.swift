@@ -23,6 +23,30 @@ class TodoManager {
         }
     }
     
+    
+    class func deleteTodo(_ requestParameters: [String: AnyObject]?,_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
+        
+        let url = URL(string: "http://localhost:8080/deleteTodo")!
+        WebServiceManger.sendRequest(requestParameters,url: url, requestMethod: .delete, responseType: TodoModel.self) {
+            (responseData:[TodoModel]?, error: Bool?) -> Void in
+            print(responseData!)
+            completion(responseData, false)
+        }
+    }
+    
+    class func updateTodo(_ requestParameters: [String: AnyObject]?,_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
+        
+        let url = URL(string: "http://localhost:8080/updateTodo")!
+        WebServiceManger.sendRequest(requestParameters,url: url, requestMethod: .post, responseType: TodoModel.self) {
+            (responseData:[TodoModel]?, error: Bool?) -> Void in
+            print(responseData!)
+            completion(responseData, false)
+        }
+    }
+   
+    
+    
+    // Add requestParameters as a argument for addTodo method
     class func addTodo(_ requestParameters: [String: AnyObject]?,_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
         
         let url = URL(string: "http://localhost:8080/postTodo")!

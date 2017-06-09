@@ -12,6 +12,7 @@ import RealmSwift
 class TodosTableViewController: UITableViewController {
     
     var todos = [TodoModel]()
+    var indexOfRow : Int?
     
  
     var rowHere : Int?
@@ -19,42 +20,61 @@ class TodosTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // read the data from database
-        TodoManager.localTodos{
-            (responseData, error) in
-            if error == false {
-                if let response = responseData{
-                    self.todos = response
-        
-                    self.tableView.reloadData()
-                    
-                }
-            }
-    }
-      
-    }
-    
-        
-        
-    override func viewWillAppear(_ animated: Bool) {
-        // get the data drom server and save it locally
+//        TodoManager.localTodos{
+//            (responseData, error) in
+//            if error == false {
+//                if let response = responseData{
+//                    self.todos = response
+//        
+//                    self.tableView.reloadData()
+//                    
+//                }
+//            }
+//    }
         TodoManager.todos {
             (responseData, error) in
             if error == false {
                 if let response = responseData{
-
+                   self.todos = response
+                    self.tableView.reloadData()
                 }
             }
         }
         
+    }
+    
+    override func viewWillAppear(_ : Bool) {
+        // get the data drom server and save it locally
+//        TodoManager.todos {
+//            (responseData, error) in
+//            if error == false {
+//                if let response = responseData{
+//
+//                }
+//            }
+//        }
+        
         // read from database  
-        TodoManager.localTodos{
+//        TodoManager.localTodos{
+//            (responseData, error) in
+//            if error == false {
+//                if let response = responseData{
+//                    self.todos = response
+//                    
+//                    self.tableView.reloadData()
+//                    
+//                }
+//            }
+//        }
+//        
+//    }
+        
+        TodoManager.todos {
             (responseData, error) in
             if error == false {
                 if let response = responseData{
                     self.todos = response
-                    
                     self.tableView.reloadData()
-                    
                 }
             }
         }
@@ -95,13 +115,49 @@ class TodosTableViewController: UITableViewController {
         
         if editingStyle == UITableViewCellEditingStyle.delete {
             rowHere = indexPath.row
-            // it crashes the app when I want to delete from database
+            let dictionaryObject = [
+                "content-type": "application/json",
+                "id": String(self.todos[self.rowHere!].todoId),
+                "name": self.todos[self.rowHere!].name,
+                "description": self.todos[self.rowHere!].description,
+                "synced": String(self.todos[self.rowHere!].synced),
+                "completed": String(self.todos[self.rowHere!].completed),
+                "notes": self.todos[self.rowHere!].notes,
+                
+            ] as [String : Any]
             
-            delete(self.todos[self.rowHere!])
+            TodoManager.deleteTodo(dictionaryObject as [String : AnyObject],
+                                   { (responseData, error) in
+                                    if error == false {
+                                        if let response = responseData {
+                                            print("this is a dlete \(response)")
+                                        }
+                                    }
+            })
+            deleteFlorian(self.todos[self.rowHere!])
+
             
             self.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.automatic)
-            
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //var celll = tableView.cellForRow(at: indexPath)
+        //indexInTable = indexPath?[1]
+        self.indexOfRow = indexPath[1]
+        
+        //currentLines.removeAll() }
+        performSegue(withIdentifier: "tableToDetail", sender: self)
+        
+        print(indexPath.row)
+    }
+    
+    override func prepare(for segue:UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tableToDetail" {
+            let vc = segue.destination as! UpdateViewController
+            vc.todoModel = self.todos[self.indexOfRow!]
             
             
         }

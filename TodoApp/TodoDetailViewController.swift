@@ -64,11 +64,10 @@ class TodoDetailViewController: UIViewController {
             if error == false {
                 if let response = responseData{
                     print(response)
-                    
-                    
                 }
             }
         }
+        
         if id.isEmpty && name.isEmpty {
             let alertController = UIAlertController(title: "warning", message:
                 " Id and name are mandatory", preferredStyle: UIAlertControllerStyle.alert)

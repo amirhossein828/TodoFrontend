@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireObjectMapper
 
 class WebServiceManger {
-    
+    // add requestParameters for argument for this method
     class func sendRequest<T: Mappable>(_ requestParameters: [String: AnyObject]? , url: URL, requestMethod: Alamofire.HTTPMethod, responseType: T.Type, completion: @escaping (_ responseData: [T]?, _ error: Bool?) -> Void) {
         //print(requestParameters)
         // To execute in a different thread than main thread:
@@ -22,6 +22,7 @@ class WebServiceManger {
         //let headers: HTTPHeaders = [ "X-APP-TOKEN" : Token().readToken() ]
         
 //        Alamofire.request(url, method: requestMethod, parameters: requestParameters)
+        // change the request argument, add headers instead of parameters.
         Alamofire.request(url, method: requestMethod, parameters: nil,encoding : JSONEncoding.default,
                           headers: requestParameters as? [String:String])
             .responseArray(queue: queue, completionHandler: {
