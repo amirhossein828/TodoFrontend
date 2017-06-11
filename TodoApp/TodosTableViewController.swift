@@ -89,7 +89,14 @@ class TodosTableViewController: UITableViewController {
         print("ff \(percentageDate)")
         cell.taskNameLabel.text = todos[indexPath.row].name
         cell.timeProgressBar.progress = Float(percentageDate)
-        // Configure the cell...
+        if percentageDate < 0.35 {
+            cell.backgroundColor = UIColor.blue
+        } else if percentageDate < 0.70 {
+            cell.backgroundColor = UIColor.orange
+        } else {
+            cell.backgroundColor = UIColor.red
+        }
+       
         
         return cell
     }
@@ -127,8 +134,6 @@ class TodosTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //var celll = tableView.cellForRow(at: indexPath)
-        //indexInTable = indexPath?[1]
         self.indexOfRow = indexPath[1]
         
         //currentLines.removeAll() }
@@ -141,8 +146,6 @@ class TodosTableViewController: UITableViewController {
         if segue.identifier == "tableToDetail" {
             let vc = segue.destination as! UpdateViewController
             vc.todoModel = self.todos[self.indexOfRow!]
-            
-            
         }
     }
     
@@ -196,7 +199,6 @@ class TodosTableViewController: UITableViewController {
         guard let string = dateAsString else { return nil }
         
         let dateformatter = DateFormatter()
-        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
         let val = dateformatter.date(from: string)
         return val

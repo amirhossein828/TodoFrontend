@@ -48,7 +48,6 @@ extension TodoModel {
         guard let string = dateAsString else { return nil }
         
         let dateformatter = DateFormatter()
-        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
         let val = dateformatter.date(from: string)
         return val
@@ -57,7 +56,6 @@ extension TodoModel {
     static func dateToString(_ dateIn: Date?) -> String? {
         guard let date = dateIn else { return nil }
         let dateformatter = DateFormatter()
-        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
         let val = dateformatter.string(from: date)
         return val
