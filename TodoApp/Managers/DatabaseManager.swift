@@ -57,7 +57,7 @@ public func readData<T:Object>(_ model: T.Type, predicate: String?, completion: 
 /// #### Delete a model from Realm DB
 /// This method deletes a specific model from Realm DB
 /// - Parameter: model - type of the model that is subclass of a Object and will be deleted
-public func deleteFlorian<T:Object>(_ model: T) {
+public func deleteFromDatadase<T:Object>(_ model: T) {
     let realm = try! Realm()
     
     try! realm.write {

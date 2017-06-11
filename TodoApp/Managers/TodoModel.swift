@@ -19,7 +19,9 @@ class TodoModel: Object, Mappable {
     dynamic var notes: String = ""
     dynamic var completed: Bool = false
     dynamic var synced: Bool = false
-
+    dynamic var dueDate = ""
+    dynamic var startingDate = ""
+    
     
     required convenience init?(map: Map) {
         self.init()
@@ -36,5 +38,28 @@ class TodoModel: Object, Mappable {
         notes <- map["notes"]
         completed <- map["completed"]
         synced <- map["synced"]
+        dueDate <- map["dueDate"]
+        startingDate <- map["startingDate"]
+    }
+}
+
+extension TodoModel {
+    static func dateFromString(_ dateAsString: String?) -> Date? {
+        guard let string = dateAsString else { return nil }
+        
+        let dateformatter = DateFormatter()
+        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
+        let val = dateformatter.date(from: string)
+        return val
+    }
+    
+    static func dateToString(_ dateIn: Date?) -> String? {
+        guard let date = dateIn else { return nil }
+        let dateformatter = DateFormatter()
+        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
+        let val = dateformatter.string(from: date)
+        return val
     }
 }

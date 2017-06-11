@@ -25,17 +25,26 @@ class UpdateViewController: UIViewController {
     @IBOutlet weak var noteField: UITextField?
     
     @IBOutlet weak var syncedField: UISwitch?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-         var idString = String(describing: todoModel?.todoId)
+        //        infoLabel.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
+        //        infoLabel.numberOfLines = 3
+        
+        if let todo = todoModel{
+           let idString = "\(todo.todoId)"
         
         
-        infoLabel.text = "name: " + (todoModel?.name)! + "--id:" + idString +  "--notes :" + (todoModel?.notes)! + "--detail:" + (todoModel?.details)!
-
+        
+        
+        
+        
+        infoLabel.text = "name: " + (todo.name) + "--id:" + idString + "--notes :" + (todo.notes) + "Date:\(todo.dueDate)"
+        }
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,7 +67,7 @@ class UpdateViewController: UIViewController {
             let note = noteField?.text,
             let done = completedfield?.isOn,
             let sync = syncedField?.isOn
-        
+            
             
             else {
                 
@@ -86,17 +95,17 @@ class UpdateViewController: UIViewController {
                 }
             }
         }
-
+        
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

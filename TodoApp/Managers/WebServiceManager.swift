@@ -36,7 +36,7 @@ class WebServiceManger {
                     DispatchQueue.main.async(execute: {
                         // Save the data to DB:
                         
-                        saveData(mappedModel)
+//                        saveData(mappedModel)
                         print("Mapped Model: \(mappedModel)")
                         // callback with the data
                         completion(mappedModel, nil)

@@ -11,64 +11,40 @@ import RealmSwift
 
 class TodosTableViewController: UITableViewController {
     
+    
     var todos = [TodoModel]()
     var indexOfRow : Int?
     
- 
+    
     var rowHere : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+   
         // read the data from database
-//        TodoManager.localTodos{
-//            (responseData, error) in
-//            if error == false {
-//                if let response = responseData{
-//                    self.todos = response
-//        
-//                    self.tableView.reloadData()
-//                    
-//                }
-//            }
-//    }
-        TodoManager.todos {
-            (responseData, error) in
-            if error == false {
-                if let response = responseData{
-                   self.todos = response
-                    self.tableView.reloadData()
-                }
-            }
-        }
+        //        TodoManager.localTodos{
+        //            (responseData, error) in
+        //            if error == false {
+        //                if let response = responseData{
+        //                    self.todos = response
+        //
+        //                    self.tableView.reloadData()
+        //
+        //                }
+        //            }
+        //    }
+        getDataFromServer()
         
     }
     
     override func viewWillAppear(_ : Bool) {
-        // get the data drom server and save it locally
-//        TodoManager.todos {
-//            (responseData, error) in
-//            if error == false {
-//                if let response = responseData{
-//
-//                }
-//            }
-//        }
+      
+     getDataFromServer()
         
-        // read from database  
-//        TodoManager.localTodos{
-//            (responseData, error) in
-//            if error == false {
-//                if let response = responseData{
-//                    self.todos = response
-//                    
-//                    self.tableView.reloadData()
-//                    
-//                }
-//            }
-//        }
-//        
-//    }
-        
+    }
+    
+    // get the data from server and reload table view
+    func getDataFromServer(){
         TodoManager.todos {
             (responseData, error) in
             if error == false {
@@ -78,7 +54,6 @@ class TodosTableViewController: UITableViewController {
                 }
             }
         }
-        
     }
     
     
@@ -102,10 +77,18 @@ class TodosTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! MyTableViewCellControllerTableViewCell
+        let currentTime = Date()
+        let endTime = dateFromString(todos[indexPath.row].dueDate)
+        let startTime = dateFromString(todos[indexPath.row].startingDate)
+        let differenceBetweenCurrentAndStart = currentTime.timeIntervalSince(startTime!)
         
-        cell.textLabel?.text = todos[indexPath.row].name
-        
+        let differenceBetweenDueDateAndStart = endTime?.timeIntervalSince(startTime!)
+    
+        let percentageDate =   differenceBetweenCurrentAndStart / differenceBetweenDueDateAndStart!
+        print("ff \(percentageDate)")
+        cell.taskNameLabel.text = todos[indexPath.row].name
+        cell.timeProgressBar.progress = Float(percentageDate)
         // Configure the cell...
         
         return cell
@@ -124,7 +107,7 @@ class TodosTableViewController: UITableViewController {
                 "completed": String(self.todos[self.rowHere!].completed),
                 "notes": self.todos[self.rowHere!].notes,
                 
-            ] as [String : Any]
+                ] as [String : Any]
             
             TodoManager.deleteTodo(dictionaryObject as [String : AnyObject],
                                    { (responseData, error) in
@@ -134,8 +117,8 @@ class TodosTableViewController: UITableViewController {
                                         }
                                     }
             })
-            deleteFlorian(self.todos[self.rowHere!])
-
+//            deleteFromDatabase(self.todos[self.rowHere!])
+            
             
             self.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.automatic)
@@ -163,12 +146,12 @@ class TodosTableViewController: UITableViewController {
         }
     }
     
-//     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == UITableViewCellEditingStyle.delete {
-//            self.todos.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.automatic)
-//        }
-//    }
+    //     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    //        if editingStyle == UITableViewCellEditingStyle.delete {
+    //            self.todos.remove(at: indexPath.row)
+    //            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.automatic)
+    //        }
+    //    }
     
     
     /*
@@ -180,10 +163,10 @@ class TodosTableViewController: UITableViewController {
      */
     
     
-
     
-   
- 
+    
+    
+    
     /*
      // Override to support rearranging the table view.
      override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
@@ -208,5 +191,15 @@ class TodosTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    func dateFromString(_ dateAsString: String?) -> Date? {
+        guard let string = dateAsString else { return nil }
+        
+        let dateformatter = DateFormatter()
+        dateformatter.timeZone = TimeZone(identifier: "France/Paris")
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
+        let val = dateformatter.date(from: string)
+        return val
+    }
     
 }
