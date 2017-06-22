@@ -8,12 +8,18 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
-
+class RegisterViewController: UIViewController  {
+    var userInput : String?
+    
+    weak var delegate : DelegateName?
+    
+    
+    var savedUser : String?
     @IBOutlet weak var passwordR: UITextField!
     @IBOutlet weak var usernameR: UITextField!
+    
     @IBAction func registerBtn(_ sender: UIButton) {
-        
+        savedUser = usernameR.text
         let headers = [
             "content-type": "application/json",
             "username": usernameR.text as? String,
@@ -27,8 +33,9 @@ class RegisterViewController: UIViewController {
         LoginManager.addLogin(headers as [String : AnyObject]){
             (responseData, error) in
             if error == false {
-                if let response = responseData{
+                if let response = responseData {
                     print(response)
+                    self.delegate?.savedData(name: self.savedUser!)
                     
                 }
             }
@@ -49,7 +56,10 @@ class RegisterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    
+   
+    
     /*
     // MARK: - Navigation
 

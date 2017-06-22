@@ -275,7 +275,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <segue destination="45e-Ie-SCs" kind="show" id="xP7-d3-YgH"/>
+                                    <segue destination="45e-Ie-SCs" kind="show" identifier="regToLog" id="xP7-d3-YgH"/>
                                 </connections>
                             </button>
                         </subviews>

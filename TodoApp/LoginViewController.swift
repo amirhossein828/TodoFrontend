@@ -8,7 +8,11 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController  ,DelegateName {
+    
+    var e  : RegisterViewController?
+    
+    var s : String?
 
     @IBOutlet weak var txtFieldUserName: UITextField!
     
@@ -42,22 +46,34 @@ class LoginViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-//        logIn(headers as [String : AnyObject]){
-//            (responseData, error) in
-//            if error == false {
-//                if let response = responseData{
-//                    print(response)
-//                    print("this is sssssss \(dueDate)")
-//                }
-//            }
-//        }
 
+    
      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//    e = RegisterViewController()
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func savedData(name: String) {
+        txtFieldUserName.text = name
+        print("fdf")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "regToLog" {
+            let vc = segue.destination as! RegisterViewController
+            vc.delegate = self
+            
+        }
     }
     
 
