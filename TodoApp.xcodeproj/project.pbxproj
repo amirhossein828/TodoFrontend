@@ -18,8 +18,11 @@
 		3DB2E7AA1CFFB0680077176C /* TodoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2E7A61CFFB0680077176C /* TodoManager.swift */; };
 		3DB2E7AB1CFFB0680077176C /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2E7A71CFFB0680077176C /* TodoModel.swift */; };
 		3DB2E7AC1CFFB0680077176C /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2E7A81CFFB0680077176C /* WebServiceManager.swift */; };
+		9646126B1EFC0AB300A3A869 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646126A1EFC0AB300A3A869 /* RegisterViewController.swift */; };
 		966350041EEA29DB00FD8909 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966350031EEA29DB00FD8909 /* UpdateViewController.swift */; };
 		966350851EEDC13A00FD8909 /* MyTableViewCellControllerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966350841EEDC13A00FD8909 /* MyTableViewCellControllerTableViewCell.swift */; };
+		96C7DD911EF452780026C15F /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7DD901EF452780026C15F /* LoginResponse.swift */; };
+		96E176371EF40BBA0085D0B9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E176361EF40BBA0085D0B9 /* LoginViewController.swift */; };
 		C7866F4B2B524272EAC75E9A /* Pods_TodoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C349DE99270EFEB0BC887906 /* Pods_TodoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +44,11 @@
 		3DB2E7A71CFFB0680077176C /* TodoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		3DB2E7A81CFFB0680077176C /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		5B4D37F7278CCAB4D9037E21 /* Pods-2016-06-01-codelab-frontend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2016-06-01-codelab-frontend.release.xcconfig"; path = "Pods/Target Support Files/Pods-2016-06-01-codelab-frontend/Pods-2016-06-01-codelab-frontend.release.xcconfig"; sourceTree = "<group>"; };
+		9646126A1EFC0AB300A3A869 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		966350031EEA29DB00FD8909 /* UpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		966350841EEDC13A00FD8909 /* MyTableViewCellControllerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTableViewCellControllerTableViewCell.swift; path = "../../../../../../Downloads/TodoFrontend-master-2/TodoApp/MyTableViewCellControllerTableViewCell.swift"; sourceTree = "<group>"; };
+		96C7DD901EF452780026C15F /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		96E176361EF40BBA0085D0B9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C349DE99270EFEB0BC887906 /* Pods_TodoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F652E0E510357529DD1D21F6 /* Pods-2016-06-01-codelab-frontend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2016-06-01-codelab-frontend.debug.xcconfig"; path = "Pods/Target Support Files/Pods-2016-06-01-codelab-frontend/Pods-2016-06-01-codelab-frontend.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +97,9 @@
 				3D318AA61CFE6CB4008BAAE2 /* ViewController.swift */,
 				966350031EEA29DB00FD8909 /* UpdateViewController.swift */,
 				966350841EEDC13A00FD8909 /* MyTableViewCellControllerTableViewCell.swift */,
+				96E176361EF40BBA0085D0B9 /* LoginViewController.swift */,
+				96C7DD901EF452780026C15F /* LoginResponse.swift */,
+				9646126A1EFC0AB300A3A869 /* RegisterViewController.swift */,
 			);
 			path = TodoApp;
 			sourceTree = "<group>";
@@ -251,6 +260,7 @@
 			files = (
 				3D318AA71CFE6CB4008BAAE2 /* ViewController.swift in Sources */,
 				3DB2E7AA1CFFB0680077176C /* TodoManager.swift in Sources */,
+				96C7DD911EF452780026C15F /* LoginResponse.swift in Sources */,
 				966350041EEA29DB00FD8909 /* UpdateViewController.swift in Sources */,
 				3DB2E7A31CFFAE490077176C /* TodoDetailViewController.swift in Sources */,
 				3DB2E7A91CFFB0680077176C /* DatabaseManager.swift in Sources */,
@@ -258,7 +268,9 @@
 				3D318AA51CFE6CB4008BAAE2 /* AppDelegate.swift in Sources */,
 				966350851EEDC13A00FD8909 /* MyTableViewCellControllerTableViewCell.swift in Sources */,
 				3DB2E7AB1CFFB0680077176C /* TodoModel.swift in Sources */,
+				9646126B1EFC0AB300A3A869 /* RegisterViewController.swift in Sources */,
 				3DB2E7A11CFFA6580077176C /* TodosTableViewController.swift in Sources */,
+				96E176371EF40BBA0085D0B9 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

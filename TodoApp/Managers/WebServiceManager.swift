@@ -27,7 +27,41 @@ class WebServiceManger {
                           headers: requestParameters as? [String:String])
             .responseArray(queue: queue, completionHandler: {
                 (response: DataResponse<[T]>) in
-                
+                print("stage 2")
+                print(response.request!)  // original URL request
+                print(response.response!) // URL response
+                print(response.result)   // result of response serialization
+                if let mappedModel = response.result.value {
+                    DispatchQueue.main.async(execute: {
+                        // Save the data to DB:
+                        saveData(mappedModel)
+                        print("Mapped Model: \(mappedModel)")
+                        // callback with the data
+                        print("stage 1")
+                        completion(mappedModel, nil)
+                    })
+                }
+            })
+        
+    }
+    
+    class func sendRequestLogin<T: Mappable>(requestHeaders: HTTPHeaders? = nil,
+                           url: URL,
+                           requestMethod: Alamofire.HTTPMethod,
+                           responseType: T.Type,
+                           completion: @escaping (_ responseData: T?,
+        _ error: Bool?) -> Void) {
+        
+        let queue = DispatchQueue(label: "manager-response-queue", attributes: DispatchQueue.Attributes.concurrent)
+        
+        // Alamofire web service call:
+        Alamofire.request(url,
+                          method: requestMethod,
+                          parameters: nil,
+                          encoding: URLEncoding.default,
+                          headers: requestHeaders)
+            .responseObject(queue: queue) {
+                (response: DataResponse<T>) in
                 print(response.request!)  // original URL request
                 print(response.response!) // URL response
                 print(response.result)   // result of response serialization
@@ -35,14 +69,50 @@ class WebServiceManger {
                 if let mappedModel = response.result.value {
                     DispatchQueue.main.async(execute: {
                         // Save the data to DB:
-                        
-//                        saveData(mappedModel)
+                        // saveData(mappedModel)
                         print("Mapped Model: \(mappedModel)")
                         // callback with the data
-                        completion(mappedModel, nil)
+                        completion(mappedModel, false)
                     })
+                } else {
+                    completion(nil, true)
                 }
-            })
-        
+        }
     }
+    
+    
+    
+    
+    
+//    class func sendRequestparams<T: Mappable>(_ requestParameters: [String: AnyObject]? , url: URL, requestMethod: Alamofire.HTTPMethod, responseType: T.Type, completion: @escaping (_ responseData: [T]?, _ error: Bool?) -> Void) {
+//        //print(requestParameters)
+//        // To execute in a different thread than main thread:
+//        let queue = DispatchQueue(label: "manager-response-queue", attributes: DispatchQueue.Attributes.concurrent)
+//        
+//        // Alamofire web service call:
+//        //let headers: HTTPHeaders = [ "X-APP-TOKEN" : Token().readToken() ]
+//        
+//        //        Alamofire.request(url, method: requestMethod, parameters: requestParameters)
+//        // change the request argument, add headers instead of parameters.
+//        Alamofire.request(url, method: requestMethod, parameters: requestParameters as? [String:Any],encoding : JSONEncoding.default)
+//            .responseArray(queue: queue, completionHandler: {
+//                (response: DataResponse<[T]>) in
+//                print("stage 2")
+//                print(response.request!)  // original URL request
+//                print(response.response!) // URL response
+//                print(response.result)   // result of response serialization
+//                if let mappedModel = response.result.value {
+//                    DispatchQueue.main.async(execute: {
+//                        // Save the data to DB:
+//                        saveData(mappedModel)
+//                        print("Mapped Model: \(mappedModel)")
+//                        // callback with the data
+//                        print("stage 1")
+//                        completion(mappedModel, nil)
+//                    })
+//                }
+//            })
+//        
+//    }
+
 }

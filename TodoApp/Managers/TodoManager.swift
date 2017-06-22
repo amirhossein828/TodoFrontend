@@ -19,6 +19,7 @@ class TodoManager {
         WebServiceManger.sendRequest(nil,url: url, requestMethod: .get, responseType: TodoModel.self) {
             (responseData:[TodoModel]?, error: Bool?) -> Void in
             print(responseData!)
+            print("stage 3")
             completion(responseData, false)
         }
     }
@@ -35,7 +36,6 @@ class TodoManager {
     }
     
     class func updateTodo(_ requestParameters: [String: AnyObject]?,_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
-        
         let url = URL(string: "http://localhost:8080/updateTodo")!
         WebServiceManger.sendRequest(requestParameters,url: url, requestMethod: .post, responseType: TodoModel.self) {
             (responseData:[TodoModel]?, error: Bool?) -> Void in
@@ -56,6 +56,26 @@ class TodoManager {
             completion(responseData, false)
         }
     }
+    
+    // Add requestParameters as a argument for addTodo method
+//    class func addAllTodo(_ requestParameters: [String: AnyObject]?,_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
+//        
+//        let url = URL(string: "http://localhost:8080/postAllTodo")!
+////        guard let requestParametersa = requestParameters else {
+////           return
+////        }
+//        
+//        
+//        WebServiceManger.sendRequestparams(requestParameters,url: url, requestMethod: .post, responseType: TodoModel.self) {
+//            (responseData:[TodoModel]?, error: Bool?) -> Void in
+//            print(responseData!)
+//            
+//            completion(responseData, false)
+//            
+//        }
+//        
+//    
+//    }
     
     class func localTodos(_ completion:@escaping (_ responseData:[TodoModel]?, _ error: Bool?) -> ()) {
         

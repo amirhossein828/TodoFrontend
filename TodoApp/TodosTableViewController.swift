@@ -14,39 +14,63 @@ class TodosTableViewController: UITableViewController {
     
     var todos = [TodoModel]()
     var indexOfRow : Int?
-    
+//    var firstLaunch : Bool?
     
     var rowHere : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        firstLaunch = true
+        
    
         // read the data from database
-        //        TodoManager.localTodos{
-        //            (responseData, error) in
-        //            if error == false {
-        //                if let response = responseData{
-        //                    self.todos = response
-        //
-        //                    self.tableView.reloadData()
-        //
-        //                }
-        //            }
-        //    }
+       
+//        readDataFromDatabase(){
+//            (responseToSend) in
+//            if let response = responseToSend {
+//                self.addDataBaseToServer(response)
+//            }
+//            
+//        }
+        
+
+        
+        
+        
+//        firstLaunch = false
         getDataFromServer()
         
     }
     
     override func viewWillAppear(_ : Bool) {
-      
-     getDataFromServer()
+        
+            getDataFromServer()
+        
         
     }
+    
+//    func readDataFromDatabase(_ datatoServer : @escaping (_ responseToSend : [TodoModel]?) ->Void){
+//                TodoManager.localTodos{
+//                    (responseData, error) in
+//                    if error == false {
+//                        if let response = responseData{
+//                            self.todos = response
+//                            print("this is the todo response \(self.todos)")
+////                            print("this is my \(response)")
+//                            datatoServer(response)
+//                            self.tableView.reloadData()
+//        
+//                        }
+//                        
+//                    }
+//            }
+//    }
     
     // get the data from server and reload table view
     func getDataFromServer(){
         TodoManager.todos {
             (responseData, error) in
+            print("stage 4")
             if error == false {
                 if let response = responseData{
                     self.todos = response
@@ -55,6 +79,42 @@ class TodosTableViewController: UITableViewController {
             }
         }
     }
+    override func viewWillDisappear(_ animated: Bool) {
+    
+    }
+//    func addDataBaseToServer(_ arrayOfTodos : [TodoModel]){
+//        var listOfAdds = [[String : AnyObject]]()
+//        for todo in arrayOfTodos {
+//
+//            let header = [
+//                
+//                "id": String(todo.todoId),
+//                "name": todo.name,
+//                "description": todo.description,
+//                "synced": String(todo.synced),
+//                "completed": String(todo.completed),
+//                "notes": todo.notes,
+//                "duedate": todo.dueDate,
+//                "startingDate": todo.startingDate,
+//                
+//                ] as [String : AnyObject]
+//            listOfAdds.append(header)
+//        }
+//        let headers = ["allTodo" : listOfAdds]
+//        
+//                TodoManager.addAllTodo(headers as? [String : AnyObject]){
+//                (responseData, error) in
+//                if error == false {
+//                    if let response = responseData{
+//                        print(response)
+//                       
+////                        print("this is sssssss \(dueDate)")
+//                    }
+//                }
+//            }
+//            
+//        
+//    }
     
     
     
@@ -101,6 +161,7 @@ class TodosTableViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         
         if editingStyle == UITableViewCellEditingStyle.delete {
@@ -113,7 +174,6 @@ class TodosTableViewController: UITableViewController {
                 "synced": String(self.todos[self.rowHere!].synced),
                 "completed": String(self.todos[self.rowHere!].completed),
                 "notes": self.todos[self.rowHere!].notes,
-                
                 ] as [String : Any]
             
             TodoManager.deleteTodo(dictionaryObject as [String : AnyObject],
